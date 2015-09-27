@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ties</string>
+
+    <string name="header">Contacts list:</string>
+    <string name="action_settings">Add Contact</string>
+    <string name="title_activity_add_contact">Add Contact</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="button_register_contact">Submit</string>
+</resources>
