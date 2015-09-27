@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class AddContactActivity extends AppCompatActivity {
 
-    public static final int TIMEOUT = 30;
+    public static final long TIMEOUT = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +61,13 @@ public class AddContactActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 Map<String, Object> uploadMap = new HashMap<String, Object>();
                 Long x = (Long) snapshot.getValue();
+                long expDate = new Date().getTime()/1000 + TIMEOUT;
 
                 uploadMap.put("name", fullName);
                 uploadMap.put("email", email);
                 uploadMap.put("expired", false);
                 uploadMap.put("timelimit", TIMEOUT);
-                uploadMap.put("expDate", (new Date().getTime())/(1000));
+                uploadMap.put("expDate", expDate);
 
                 MainActivity.firebaseHandle.child("Contacts").child(x.toString()).setValue(uploadMap);
                 MainActivity.firebaseHandle.child("Counter").setValue(x+1);
