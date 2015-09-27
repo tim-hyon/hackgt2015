@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Ties</string>
 
-    <string name="header">Contacts list:</string>
+    <string name="header">Opted in contacts:</string>
     <string name="action_settings">Add Contact</string>
     <string name="title_activity_add_contact">Add Contact</string>
 
