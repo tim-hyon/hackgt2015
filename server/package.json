@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^2.3.0"
+    "async": "^1.4.2",
+    "firebase": "^2.3.0",
+    "restler": "^3.3.0"
   }
 }

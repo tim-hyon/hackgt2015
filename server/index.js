@@ -1,32 +1,14 @@
 var Firebase = require("firebase");
+var rest = require('restler');
+var async = require('async');
 
 var tiesRef = new Firebase("https://ties.firebaseio.com/");
 
-tiesRef.set({
-  'Counter': 2,
-  'Contacts': {
-
-    0: {
-      name: 'Tim Hyon',
-      timeLimit: 30,
-      expDate: 1443434623,
-      expired: false, 
-      email: 'tim.c.hyon@gmail.com',
-    } ,
-
-    1: {
-      name: 'Tim Hyon',
-      timeLimit: 30,
-      expDate: 1443434623,
-      expired: false, 
-      email: 'tim.c.hyon@gmail.com',
-    } ,
-
-  },
-});
-
-/*
-tiesRef.child("location/city").on("value", function(snapshot) {
-  alert(snapshot.val());  // Alerts "San Francisco"
-});
-*/
+var count = 0;
+setInterval(function() {
+  count += 1;
+  rest.get('https://ties.firebaseio.com/Contacts.json').on('complete', function(data) {
+    console.log(data); // auto convert to object
+  });
+  console.log(count);
+}, 1000);
