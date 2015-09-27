@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         firebaseHandle = new Firebase(FIREBASE_URL);
-        firebaseHandle.child("sweg").setValue("sweg sweg");
+
         setContentView(R.layout.activity_main);
     }
 

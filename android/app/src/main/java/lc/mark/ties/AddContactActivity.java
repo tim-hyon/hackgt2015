@@ -52,6 +52,7 @@ public class AddContactActivity extends AppCompatActivity {
         String fullName = view2text(R.id.full_name);
         String email = view2text(R.id.email);
         uploadToFirebase(fullName, email);
+        finish();
     }
 
     private void uploadToFirebase(final String fullName, final String email) {
