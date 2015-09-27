@@ -1,12 +1,22 @@
 package lc.mark.ties;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,8 +28,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         firebaseHandle = new Firebase(FIREBASE_URL);
-
         setContentView(R.layout.activity_main);
+        final Context c = this;
+
+        firebaseHandle.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> data = (Map<String, Object>) dataSnapshot.getValue();
+                ArrayList<Map<String, Object>> contacts = (ArrayList) data.get("Contacts");
+
+                ListView lv = (ListView) findViewById(R.id.contacts_list);
+                List<String> contact = new ArrayList<String>();
+
+
+               for (Map<String, Object> m : contacts)
+                   contact.add((String) m.get("name"));
+
+                String[] ss = contact.toArray(new String[contact.size()]);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1, ss);
+
+                ListView listView = (ListView) findViewById(R.id.contacts_list);
+                lv.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     @Override
