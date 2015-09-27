@@ -11,6 +11,8 @@
   "dependencies": {
     "async": "^1.4.2",
     "firebase": "^2.3.0",
+    "google-auth-library": "^0.9.6",
+    "googleapis": "^2.1.5",
     "restler": "^3.3.0"
   }
 }
