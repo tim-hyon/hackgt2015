@@ -1,10 +1,3 @@
-var Firebase = require("firebase");
-var rest = require('restler');
-var async = require('async');
-
-var tiesRef = new Firebase("https://ties.firebaseio.com/");
-var base = "https://ties.firebaseio.com/Contacts"
-
 var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
@@ -15,8 +8,7 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'gmail-nodejs-quickstart.json';
 
-var gquickstart = require('./quickstart.js');
-
+// Load client secrets from a local file.
 fs.readFile('client_secret.json', function processClientSecrets(err, content) {
   if (err) {
     console.log('Error loading client secret file: ' + err);
@@ -26,31 +18,6 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
   // Gmail API.
   authorize(JSON.parse(content), listLabels);
 });
-
-var count = 0;
-setInterval(function() {
-  count += 1;
-  rest.get(base+'.json').on('complete', function(data) {
-    for (contact in data) {
-      console.log(data[contact]);
-      var seconds = ((new Date).getTime())/1000;
-      if (seconds > data[contact].expDate) {
-        var currRef = new Firebase(base+'/'+contact);
-        currRef.update({expired: true});
-      } else {
-        /*
-        var email = data[contact].email
-        gmailEndpoint = 'https://www.googleapis.com/gmail/v1/users/me/messages?q="in:sent from:tim.c.hyon@gmail.com to:'+
-                        email+'"'
-        rest.get(gmailEndpoint).on('complete', function(data) {
-          console.log(data)
-        });
-        */
-      }
-    }
-  });
-  //console.log(count);
-}, 1000);
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
